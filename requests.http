@@ -1,0 +1,28 @@
+### Start provisioning - happy path
+POST http://localhost:8080/api/v1/provisioning
+Content-Type: application/json
+
+{
+  "subscriberName": "Alice",
+  "serviceType": "DATA_5G",
+  "simulateActivationFailure": false
+}
+
+### Start provisioning - forced failure (compensation flow)
+POST http://localhost:8080/api/v1/provisioning
+Content-Type: application/json
+
+{
+  "subscriberName": "Bob",
+  "serviceType": "VOLTE",
+  "simulateActivationFailure": true
+}
+
+### Get provisioning status (replace {{sagaId}} with the id returned above)
+GET http://localhost:8080/api/v1/provisioning/{{sagaId}}
+
+### Health
+GET http://localhost:8080/actuator/health
+
+### Prometheus metrics
+GET http://localhost:8080/actuator/prometheus
